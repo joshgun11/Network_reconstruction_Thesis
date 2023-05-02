@@ -1,0 +1,7 @@
+Experiment Name,Graph,Data Size,Node Size,Edge Size,Dynamics,Method,Model,Acc,TP,FP,FN,Loss,Prediction Acc/MSE,Run Time,Epochs,X
+forest_fire_50K_erdos_30_MLP_input_change5,erdos,50K,30,67,forest_fire,input_change,MLP,1.0,1.0,0.0,0.0,0.0,0.48,529.0199482440948,50,5
+forest_fire_50K_geom_30_MLP_input_change5,geom,50K,30,84,forest_fire,input_change,MLP,0.9977777777777778,1.0,0.00273224043715847,0.0,1.0,0.5,543.6571350097656,50,5
+forest_fire_50K_albert_30_MLP_input_change5,albert,50K,30,56,forest_fire,input_change,MLP,0.9933333333333333,0.9464285714285714,0.0,0.05357142857142857,3.0,0.5,514.8197481632233,50,5
+cml_50K_3.5_erdos_30_MLP_input_change,erdos,50K,30,67,cml 3.5,input_change,MLP,0.9911111111111112,0.9850746268656716,0.007832898172323759,0.014925373134328358,4.0,0.01,1011.6869456768036,50,
+cml_50K_3.5_albert_30_MLP_input_change,albert,50K,30,56,cml 3.5,input_change,MLP,0.98,0.875,0.005076142131979695,0.125,9.0,0.01,1202.6173295974731,50,
+cml_50K_3.5_geom_30_MLP_input_change,geom,50K,30,84,cml 3.5,input_change,MLP,0.9844444444444445,0.9642857142857143,0.01092896174863388,0.03571428571428571,7.0,0.01,1484.2886731624603,50,

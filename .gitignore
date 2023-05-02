@@ -1,0 +1,12 @@
+venv
+.package
+.DS_Store
+th_env
+*__pycache*
+*png
+*.h5
+*pt
+.png
+.pt
+.h5
+*.pickle

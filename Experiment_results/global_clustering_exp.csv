@@ -1,0 +1,6 @@
+Experiment Name,Graph,Data Size,Node Size,Edge Size,Dynamics,Method,Model,Acc,TP,FP,FN,Loss,Prediction Acc/MSE,Run Time,Epochs,X
+
+sis_50K_geom_30_MLP_input_change5,geom,50K,30,84,sis,input_change,MLP,0.9911111111111112,0.9642857142857143,0.00273224043715847,0.03571428571428571,4.0,0.66,527.2070500850677,50,5
+gol_50K_geom_30_MLP_input_change5,geom,50K,30,84,gol,input_change,MLP,1.0,1.0,0.0,0.0,0.0,0.72,612.8529570102692,50,5
+sis_50K_albert_30_MLP_input_change5,albert,50K,30,56,sis,input_change,MLP,1.0,1.0,0.0,0.0,0.0,0.63,467.93900299072266,50,5
+gol_50K_albert_30_MLP_input_change5,albert,50K,30,56,gol,input_change,MLP,0.9866666666666667,0.9642857142857143,0.01015228426395939,0.03571428571428571,6.0,0.68,669.8561728000641,50,5

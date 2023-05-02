@@ -1,0 +1,19 @@
+,Experiment Name,Graph,Data Size,Node Size,Edge Size,Dynamics,Method,Model,Acc,TP,FP,FN,Prediction Acc/MSE,Run Time,Epochs,X
+552,voter_50K_erdos_50_MLP_input_change30,erdos,50K,50,186,voter,input_change,MLP,1.0,1.0,0.0,0.0,0.74,751.139176607132,100,30.0
+555,voter_50K_albert_50_MLP_input_change30,albert,50K,50,96,voter,input_change,MLP,0.97,0.79,0.02,0.21,0.76,712.5967938899994,100,30.0
+558,voter_50K_geom_50_MLP_input_change30,geom,50K,50,239,voter,input_change,MLP,0.99,0.97,0.0,0.03,0.79,1139.3788003921509,100,30.0
+564,sis_50K_erdos_50_MLP_input_change30,erdos,50K,50,186,sis,input_change,MLP,0.94,0.57,0.0,0.43,0.7,1069.3293719291687,100,30.0
+567,sis_50K_albert_50_MLP_input_change30,albert,50K,50,96,sis,input_change,MLP,0.97,0.64,0.0,0.36,0.62,987.7451236248016,100,30.0
+570,sis_50K_geom_50_MLP_input_change30,geom,50K,50,239,sis,input_change,MLP,0.87,0.33,0.0,0.67,0.76,1016.832864522934,100,30.0
+576,gol_50K_erdos_50_MLP_input_change30,erdos,50K,50,186,gol,input_change,MLP,0.99,0.96,0.0,0.04,0.66,1065.301186084747,100,30.0
+579,gol_50K_albert_50_MLP_input_change30,albert,50K,50,96,gol,input_change,MLP,0.97,0.65,0.0,0.35,0.66,1321.348720550537,100,30.0
+582,gol_50K_geom_50_MLP_input_change30,geom,50K,50,239,gol,input_change,MLP,0.97,0.84,0.0,0.16,0.68,1031.1711452007294,100,30.0
+1631,sis_50K_albert_50_LSTM_input_change30,albert,50K,50,96,sis,input_change,LSTM,0.97,0.62,0.0,0.38,0.62,8781.259194850922,50,30.0
+1632,gol_50K_albert_50_LSTM_input_change30,albert,50K,50,96,gol,input_change,LSTM,0.97,0.65,0.0,0.35,0.66,10815.303392410278,50,30.0
+1633,voter_50K_albert_50_LSTM_input_change30,albert,50K,50,96,voter,input_change,LSTM,0.98,0.81,0.01,0.19,0.76,35988.878428936005,50,30.0
+1634,sis_50K_erdos_50_LSTM_input_change30,erdos,50K,50,186,sis,input_change,LSTM,0.91,0.44,0.01,0.56,0.7,11889.428364753723,50,30.0
+1635,gol_50K_erdos_50_LSTM_input_change30,erdos,50K,50,186,gol,input_change,LSTM,0.99,0.96,0.0,0.04,0.66,13634.392116069794,50,30.0
+1636,voter_50K_erdos_50_LSTM_input_change30,erdos,50K,50,186,voter,input_change,LSTM,1.0,1.0,0.0,0.0,0.74,13187.090582370758,50,30.0
+1637,sis_50K_geom_50_LSTM_input_change30,geom,50K,50,239,sis,input_change,LSTM,0.86,0.31,0.01,0.69,0.76,15717.350873708723,50,30.0
+1638,gol_50K_geom_50_LSTM_input_change30,geom,50K,50,239,gol,input_change,LSTM,0.96,0.83,0.0,0.17,0.68,18340.386378765103,50,30.0
+1639,voter_50K_geom_50_LSTM_input_change30,geom,50K,50,239,voter,input_change,LSTM,0.99,0.97,0.0,0.03,0.79,17501.58221101761,50,30.0
