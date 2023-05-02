@@ -170,24 +170,27 @@ if __name__=="__main__":
     args = parser.parse_args()
     reconstructor = Reconstruction()
     
-    args.problem_type = 'classification'
-    args.num_classes = 2
-    args.node_size = 10
-    args.data = 'erdos_10_gol_10000.pickle'
-    args.method = 'input_change'
-    args.model = 'MLP'
-    args.epochs = 100
-    args.dynamics = 'gol'
-    args.graph = 'erdos'
-    args.data_size = 10000
-    args.r = 3.5
-    args.experiment_name =  'sis' #str('cml')+'_'+str(int(args.data_size/1000))+'K_'+str(args.r)+'_'+str(args.graph)+'_'+str(args.node_size)+'_'+args.model+'_'+args.method
+    #args.problem_type = 'classification'
+    #args.num_classes = 2
+    #args.node_size = 10
+    #args.data = 'erdos_10_gol_10000.pickle'
+    #args.method = 'input_change'
+    #args.model = 'MLP'
+    #args.epochs = 100
+    #args.dynamics = 'gol'
+    #args.graph = 'erdos'
+    #args.data_size = 10000
+    #args.r = 3.5
+    #args.experiment_name =  'sis' #str('cml')+'_'+str(int(args.data_size/1000))+'K_'+str(args.r)+'_'+str(args.graph)+'_'+str(args.node_size)+'_'+args.model+'_'+args.method
             
             
 
 
-   
-    symmetric_predicted_matrix,train_loss,train_acc,test_loss,test_acc,times,Acc = reconstructor.reconstruct(args)
+    if args.problem_type == 'classification':
+        symmetric_predicted_matrix,train_loss,train_acc,test_loss,test_acc,times,Acc,run_time = reconstructor.reconstruct(args)
+    else:
+        symmetric_predicted_matrix,train_loss,test_loss,times,MSE,run_time = reconstructor.reconstruct(args)
+    
     pred_acc = np.mean(Acc)
     et = time.time()
     elapsed_time = et - st - np.sum(times)
@@ -195,6 +198,10 @@ if __name__=="__main__":
     graph,adj = reconstructor.ground_truth_graph(args,symmetric_predicted_matrix)
     plotter = Kplot()
     path = str('results/'+args.dynamics+'/'+args.graph+'/'+args.experiment_name)
+    if args.problem_type == 'classification':
+        plotter.plot_avg_metrics(train_acc,test_acc,'Acc',args,path+'/'+'avg_acc')
+        plt.close()
+
     plotter.plot_avg_metrics(train_loss,test_loss,'Loss',args,path+'/'+'avg_loss')
     plt.close()
     metrics = Kmetrics()

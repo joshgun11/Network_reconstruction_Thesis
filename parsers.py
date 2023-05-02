@@ -29,7 +29,7 @@ class KParseArgs():
 
 
         #parametrs for data generation  
-        self.parser.add_argument("--every_x_step", help="graph type", action='store', nargs='?', default=2,
+        self.parser.add_argument("--every_x_step", help="graph type", action='store', nargs='?', default=5,
                             type=int)
         self.parser.add_argument("--graph", help="graph type", action='store', nargs='?', default='grid',
                             type=str)  
