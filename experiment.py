@@ -12,10 +12,11 @@ method = []
 model = []
 node_size = []
 data_size = []
-def experiment_classification(data,graph_type,method,model,node_size,data_size,dynamics,name,X,direction,classes,plot):
+def experiment_classification(data,graph_type,method,model,node_size,data_size,dynamics,file_name,X,direction,classes,plot):
     parser = KParseArgs()
     args = parser.parse_args()
     reconstructor = Reconstruction()
+    args.file_name=file_name+'.csv'
     for i in range(len(data)):
         for j in method:
             args.plot = plot
@@ -54,7 +55,7 @@ def experiment_classification(data,graph_type,method,model,node_size,data_size,d
             loss = metrics.graph_dist(adj,symmetric_predicted_matrix)
             dyn = args.dynamics
             datas = [args.experiment_name,args.graph, str(int(args.data_size/1000))+'K', args.node_size,graph.number_of_edges(), dyn,args.method,args.model,acc,tp,fp,fn,   loss,pred_acc,elapsed_time,args.epochs,int(x)]
-            metrics.create_results_data(datas,name)
+            metrics.create_results_data(datas,args.file_name)
             print(args.experiment_name +' Finished Successfully')
             
     
@@ -62,10 +63,12 @@ def experiment_classification(data,graph_type,method,model,node_size,data_size,d
 
 
 
-def experiment_regression(data,graph_type,method,model,node_size,data_size,r,name,direction,classes,plot):
+def experiment_regression(data,graph_type,method,model,node_size,data_size,r,file_name,direction,classes,plot):
     parser = KParseArgs()
     args = parser.parse_args()
     reconstructor = Reconstruction()
+    
+    args.file_name = file_name+'.csv'
     for i in range(len(data)):
         for j in method:
             args.plot = plot
@@ -103,7 +106,7 @@ def experiment_regression(data,graph_type,method,model,node_size,data_size,r,nam
                 loss = metrics.graph_dist(adj,symmetric_predicted_matrix)
                 dyn = args.dynamics+' '+str(args.r)
                 datas = [args.experiment_name,args.graph, str(int(args.data_size/1000))+'K', args.node_size,graph.number_of_edges(), dyn,args.method,args.model,acc,tp,fp,fn,loss,pred_acc,elapsed_time,args.epochs]
-                metrics.create_results_data(datas,name)
+                metrics.create_results_data(datas,args.file_name)
                 print(args.experiment_name +' Finished Successfully')
             except:
                 pass
@@ -113,21 +116,22 @@ def experiment_regression(data,graph_type,method,model,node_size,data_size,r,nam
 
 if __name__=="__main__":
     flag = len(sys.argv) == 1
-    data = ['albert_100_gol_50000_30.pickle']
+    data = ['erdos_5_rps_500_5.pickle']
     
-    graph_type = ['albert']    
+    graph_type = ['erdos']    
     method = ['input_change']
     model = 'MLP'
-    node_size = [100]
-    data_size = [50000]
-    dynamics = ['gol']
+    node_size = [5]
+    data_size = [500]
+    dynamics = ['rps']
     r = [3.5,3.8]
     direction = 'undirected'
-    X = [30]
-    classes = [2]
+    X = [5]
+    classes = [3]
+    file_name = 'check_2'
 
-    experiment_classification(data,graph_type,method,model,node_size,data_size,dynamics,'check.csv',X,direction,classes,False)
-    #experiment_regression(data,graph_type,method,model,node_size,data_size,r,'check.csv',direction,classes,False)
+    experiment_classification(data,graph_type,method,model,node_size,data_size,dynamics,file_name,X,direction,classes,'no')
+    #experiment_regression(data,graph_type,method,model,node_size,data_size,r,'check.csv',direction,classes,'no')
 
 
 

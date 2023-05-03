@@ -10,9 +10,9 @@ args = parser.parse_args()
 flag = len(sys.argv) == 1
 
 
-args.dynamics == 'gol'
-args.data_size = 10000
-node_size = [10]
+args.dynamics == 'rps'
+args.data_size = 500
+node_size = [5]
 graphs = ['erdos']
 
 for i in range(len(graphs)):
@@ -20,5 +20,5 @@ for i in range(len(graphs)):
     for j in range(len(node_size)):
         args.node_size = node_size[j]
         args.r = 3.8
-        data_generator.gol(args)
+        data_generator.rps(args)
 

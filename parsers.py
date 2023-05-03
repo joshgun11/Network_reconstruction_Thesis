@@ -58,10 +58,13 @@ class KParseArgs():
         
 
 
-        self.parser.add_argument("--plot", help="plot or not", action='store', nargs='?', default=True,
-                            type=bool)  
+        self.parser.add_argument("--plot", help="plot or not", action='store', nargs='?', default='no',
+                            type=str, choices=['yes', 'no'])  
         self.parser.add_argument("--experiment_name", help="experiment ID", action='store', nargs='?', default=True,
-                            type=str)                    
+                            type=str)        
+
+        self.parser.add_argument("--file_name", help="file to log results", action='store', nargs='?', default='example',
+                            type=str)            
          
     
     

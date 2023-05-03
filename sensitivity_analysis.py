@@ -336,7 +336,7 @@ class Sensitiviy_Analysis():
 
 
 
-        if args.plot:
+        if args.plot =='yes':
             st = time.time()
             ploter.plot_all(args,graph,node,scores_dict,results,labels,ploter)
             et = time.time()
@@ -345,8 +345,8 @@ class Sensitiviy_Analysis():
         
             plotting_time = t - plotting_time
         else:
-            plotting_time = 0
-            plotting_time = t - plotting_time
+            plotting_time = t
+            
 
 
         print(plotting_time)

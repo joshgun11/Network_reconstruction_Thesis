@@ -125,6 +125,9 @@ class Kplot():
             data_size = args.data_size
             node_size = args.node_size
             G = graph.generate_graph(args,node_size)
+            if args.experiment_name == None:
+                args.experiment_name = str(str(args.dynamics)+'_'+str(int(args.data_size/1000))+'K'+'_'+str(args.graph)+'_'+str(args.node_size)+'_'+args.model+'_'+args.method+str(args.every_x_step))
+
             path = 'results/'+str(args.dynamics)+'/'+str(args.graph)+'/'+args.experiment_name+'/'
             if not os.path.exists('results'):
                 os.mkdir('results')

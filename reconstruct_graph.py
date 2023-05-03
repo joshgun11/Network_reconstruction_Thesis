@@ -188,16 +188,18 @@ if __name__=="__main__":
 
     if args.problem_type == 'classification':
         symmetric_predicted_matrix,train_loss,train_acc,test_loss,test_acc,times,Acc,run_time = reconstructor.reconstruct(args)
+        pred_acc = np.mean(Acc)
     else:
         symmetric_predicted_matrix,train_loss,test_loss,times,MSE,run_time = reconstructor.reconstruct(args)
+        pred_acc = np.mean(test_loss)
     
-    pred_acc = np.mean(Acc)
     et = time.time()
-    elapsed_time = et - st - np.sum(times)
+    elapsed_time = et - st + np.sum(times)
     print('Execution time:', elapsed_time, 'seconds') 
     graph,adj = reconstructor.ground_truth_graph(args,symmetric_predicted_matrix)
     plotter = Kplot()
     path = str('results/'+args.dynamics+'/'+args.graph+'/'+args.experiment_name)
+    
     if args.problem_type == 'classification':
         plotter.plot_avg_metrics(train_acc,test_acc,'Acc',args,path+'/'+'avg_acc')
         plt.close()
@@ -210,7 +212,7 @@ if __name__=="__main__":
     loss = metrics.graph_dist(adj,symmetric_predicted_matrix)
     dyn = args.dynamics+' '+str(args.r)
     datas = [args.experiment_name,args.graph, str(int(args.data_size/1000))+'K', args.node_size,graph.number_of_edges(), dyn,args.method,args.model,acc,tp,fp,fn,loss,pred_acc,elapsed_time,args.epochs]
-    metrics.create_results_data(datas,'new.csv')
+    metrics.create_results_data(datas,args.file_name+'.csv')
     print(args.experiment_name +' Finished Successfully')
     
 
