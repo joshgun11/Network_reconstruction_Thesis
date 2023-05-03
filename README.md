@@ -24,6 +24,7 @@ You can find the pdf version of the thesis in `thesis_main.pdf`
 -  Create virtual environment on your machine `python -m venv example_env`
 -  Activate the environment `source env/bin/activate`
 -  Install the required packages `pip install -r requirements.txt`
+-  If the example datasets are zipped, you should unzip the files to be accesible by NSNR. Example data should be in a path `datasets\dynamics\example_data`
 
 Then:
 
