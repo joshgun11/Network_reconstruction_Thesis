@@ -28,11 +28,13 @@ class Deeplift():
             #attribution
             #importances = np.sum(attribution, axis=0)
             return attribution
+
         def odd_count(n):
             arr = []
             for i in range(0,n,num_classes):
                 arr.append(i)
             return arr
+
         nodes = odd_count(num_classes*inputs.shape[1])
         contrubutions = []
         for i in range(num_classes):
@@ -49,7 +51,6 @@ class Deeplift():
             else:
                 contrubutions.append(importance)
         contrubutions = np.array(contrubutions)
-    
         contrubutions = np.sum(contrubutions,axis = 0)
         contrubutions = contrubutions/num_classes
         results = {}

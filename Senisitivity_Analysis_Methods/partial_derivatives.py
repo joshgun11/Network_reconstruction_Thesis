@@ -5,6 +5,7 @@ class Partial_Derivatives():
     def __init__(self) -> None:
         pass
 
+    # For regression
     def gradient_based_sensitivity_regression(self,model, X_test, node, num_classes):
         def calculate_gradients(model, X_test, index, num_classes):
             jacobian_matrix = torch.zeros((X_test.shape[1] * num_classes, num_classes), dtype=torch.float32)
@@ -19,7 +20,6 @@ class Partial_Derivatives():
                 jacobian_matrix[:, i] = my_input.grad.view(X_test.shape[1] * num_classes).float()
                 my_input.grad.zero_()
             return jacobian_matrix.cpu().numpy()
-
         J = []
         for i in range(X_test.shape[0]):
             grads = calculate_gradients(model, X_test, i, num_classes)
@@ -27,17 +27,15 @@ class Partial_Derivatives():
             J.append(grads)
         J = sum(J) / X_test.shape[0]
         J = np.sqrt(J)
-
         J_mod = {}
         for i in range(X_test.shape[1]):
             if i < node:
                 J_mod[str(i)] = J[i][0]
             else:
                 J_mod[str(i + 1)] = J[i][0]
-
         return J_mod
 
-
+    # Classification
     def gradient_based_sensitivity_classification(self,model, X_test, node, num_classes):
         def calculate_gradients(model, X_test, index, num_classes):
             X = torch.from_numpy(X_test[index]).view(-1).float()
