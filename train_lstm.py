@@ -17,6 +17,7 @@ class Train_LSTM():
     def __init__(self) -> None:
         pass
     
+    # LSTM train for classification
     def train_lstm_classification(self,X_train,y_train,X_test,y_test,epochs,n_steps,node_size,num_classes,args,node):
         lstm = LSTM()
         model = lstm.LSTM_classification(n_steps,node_size,num_classes)
@@ -42,6 +43,7 @@ class Train_LSTM():
             model.save('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'.h5')
         return model,history.history['acc'],history.history['val_acc'],history.history['loss'],history.history['val_loss']
     
+    # LSTM train for regression
     def train_lstm_regression(self,X_train,y_train,X_test,y_test,epochs,n_steps,node_size,num_classes,args,node):
         lstm = LSTM()
         model = lstm.LSTM_regression(n_steps,node_size,num_classes)
@@ -68,12 +70,12 @@ class Train_LSTM():
         
         return model,history.history['loss'],history.history['val_loss']
 
+    # LSTM trainer
     def train_lstm(self,args,x,y,node):
 
-
         if args.problem_type =="classification":
+
             X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
-            
             X_train = np.array(X_train)
             y_train = np.array(y_train)
             X_test = np.array(X_test)
@@ -86,16 +88,12 @@ class Train_LSTM():
 
         elif args.problem_type =="regression":
 
-
-
             X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
-            
             X_train = np.array(X_train)
             y_train = np.array(y_train)
             X_test = np.array(X_test)
             y_test = np.array(y_test)
            
-                   
             start = time.time()
             model,train_loss,val_loss = self.train_lstm_regression(X_train,y_train,X_test,y_test,args.epochs,args.n_steps,args.node_size,args.num_classes,args,node)
             finish = time.time()

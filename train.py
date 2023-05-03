@@ -15,7 +15,8 @@ class KTrain():
 
     def __init__(self) -> None:
         pass
-    
+
+    # MLP Classification train
     def train_model_classification(self,n_epochs,train_loader,validation_loader,model,node,args):
         #model=Net(48,100,64,32,2,p = 0.2)
         optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
@@ -102,9 +103,6 @@ class KTrain():
                         torch.save(model.state_dict(), 'trained_models/classification/'+str(args.data)[:-7]+'/'+str(node)+'.pt')
                         print('Detected network improvement, saving current model')
     
-
-
-
             if current_loss > last_loss:
                 trigger_times += 1
                 print('Trigger Times:', trigger_times)
@@ -112,17 +110,15 @@ class KTrain():
                 if trigger_times >= patience:
                     print('Early stopping!\nStart to test process.')
                     break
-
             else:
                 print('trigger times: 0')
                 trigger_times = 0
-
                 last_loss = current_loss
     
         model.load_state_dict(torch.load('trained_models/classification/'+str(args.data)[:-7]+'/'+str(node)+'.pt'))
         return model,train_acc,train_loss,val_loss,val_acc
 
-
+    # MLP Regression train
     def train_model_reg(self,n_epochs,train_loader,validation_loader,model,node,args):
         #model=REG(num_input,128,128,128,128,1)
         optimizer = torch.optim.SGD(model.parameters(),lr=0.01,momentum=0.9, weight_decay=0.001)
@@ -161,8 +157,6 @@ class KTrain():
             train_loss.append(running_loss/total_step)
             print(f'\ntrain loss: {np.mean(train_loss):.4f}')
             batch_loss = 0
-       
-        
             with torch.no_grad():
                 model.eval()
                 for data_t, target_t in (validation_loader):
@@ -209,19 +203,16 @@ class KTrain():
             else:
                 print('trigger times: 0')
                 trigger_times = 0
-
                 last_loss = current_loss
 
         model.load_state_dict(torch.load('trained_models/regression/'+str(args.data)[:-7]+'/'+str(node)+'.pt'))
         return model,train_loss,val_loss
 
 
-
+# MLP trainer
     def train(self,args,x,y,node):
 
-
         if args.problem_type =="classification":
-
             st = time.time()
             X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
             X_train = np.array(X_train)
@@ -247,7 +238,6 @@ class KTrain():
             X_test = np.array(X_test)
             y_test = np.array(y_test)
            
-                   
             train_test_loader = KData()
             train_loader,validation_loader=train_test_loader.convert_to_tensor(X_train,X_test,y_train,y_test,args.batch_size,args)
 
@@ -259,23 +249,14 @@ class KTrain():
             return x,y,y_test,X_test,model,train_loss,val_loss,elapsed_time
 
 
-        
- 
-
-    
-
 if __name__=="__main__":
+
     train_model = KTrain()
     parser = KParseArgs()
     data_selector = KData()
     args = parser.parse_args()
-    
-    args.plot_cluster = True
-
     flag = len(sys.argv) == 1
     pairs = data_selector.prepare_data(args.data)
-
-
     train_model.train(args,pairs,args.node)
 
         

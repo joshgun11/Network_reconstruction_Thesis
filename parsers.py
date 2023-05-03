@@ -21,18 +21,18 @@ class KParseArgs():
         self.parser.add_argument("--node", help="traget node", action='store', nargs='?', default=1,
                             type=int)    
         self.parser.add_argument("--model", help="model type", action='store', nargs='?', default='MLP',
-                            type=str)    
-        self.parser.add_argument("--n_steps", help="length of sequence", action='store', nargs='?', default=10,
+                            type=str,choices=['MLP','LSTM'])    
+        self.parser.add_argument("--n_steps", help="length of sequence for LSTM", action='store', nargs='?', default=10,
                             type=int)
         self.parser.add_argument("--direction", help="directed or undirected network", action='store', nargs='?', default='undirected',
-                            type=str)
+                            type=str,choices=['directed','undirected'])
 
 
         #parametrs for data generation  
         self.parser.add_argument("--every_x_step", help="graph type", action='store', nargs='?', default=5,
                             type=int)
         self.parser.add_argument("--graph", help="graph type", action='store', nargs='?', default='grid',
-                            type=str)  
+                            type=str,choices=['grid','erdos','geom','albert'])  
         self.parser.add_argument("--node_size", help="graph type", action='store', nargs='?', default=25,
                             type=int)
         self.parser.add_argument("--data_size", help="data size", action='store', nargs='?', default=1000,
@@ -42,19 +42,19 @@ class KParseArgs():
         self.parser.add_argument("--mu", help="recovery rate", action='store', nargs='?', default=2.0,
                             type=float)#for SIS dynamics
         self.parser.add_argument("--dynamics", help="dynamical model", action='store', nargs='?', default='voter',
-                            type=str)
+                            type=str,choices=['sis','voter','gol','rps','sis','cml'])
         self.parser.add_argument("--s", help="cml", action='store', nargs='?', default=0.2,
                             type=float)#for CML dynamics
-        self.parser.add_argument("--r", help="cml", action='store', nargs='?', default=3.57,
+        self.parser.add_argument("--r", help="cml", action='store', nargs='?', default=3.5,
                             type=float)#for CML dynamics
 
         #parametrs for Sensitivity Analaysis
         self.parser.add_argument("--method", help="analysis method", action='store', nargs='?', default='input_change',
-                            type=str)
+                            type=str,choices=['input_change','gradient_based','deeplift'])
         self.parser.add_argument("--num_classes", help="number of output units", action='store', nargs='?', default=2,
                             type=int)
         self.parser.add_argument("--problem_type", help="type of learning", action='store', nargs='?', default='classification',
-                            type=str)   
+                            type=str,choices=['classification','regression'])   
         
 
 

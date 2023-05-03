@@ -44,6 +44,7 @@ class Sensitiviy_Analysis():
                 results = results.reshape(args.node_size-1)
         return results
 ########################################################################################################################################################################################
+#CLustering method
     def clustering(self,args,results,X,node):
         scores = sorted(results)
         scores = np.array(scores)
@@ -57,8 +58,8 @@ class Sensitiviy_Analysis():
         labels = (results> thresh).astype('float')
         return labels,thresh
 ########################################################################################################################################################################################
+# SA methods
     def apply_method(self,args,node):
-        
         print('Process is going for node: '+str(node))
         train_model = KTrain() 
         ploter = Kplot()
@@ -182,7 +183,7 @@ class Sensitiviy_Analysis():
         ######################################
 
 ########################################################################################################################################################################################
-
+# Input Permutation
         if args.method =="input_change":
             analysis  = Input_Change()
             if args.problem_type == 'classification':
@@ -213,7 +214,7 @@ class Sensitiviy_Analysis():
 
             elif args.problem_type =='regression':
                 if args.model =="MLP": 
-                    
+                
                     scores_dict = analysis.feature_importance_reg(x,y,y_test,X_test,model,node)
                     print(scores_dict)
                     with torch.no_grad():
@@ -231,7 +232,7 @@ class Sensitiviy_Analysis():
                     mse = mean_squared_error(y_test,predictions)
 
 ########################################################################################################################################################################################
-
+#Partial Derivatives
         elif args.method =="gradient_based":
             analysis = Partial_Derivatives()
             if args.problem_type =='regression':
@@ -259,7 +260,9 @@ class Sensitiviy_Analysis():
 
 ########################################################################################################################################################################################
 
+# Additinal method SHAP: Not used in thesis
         elif args.method =="shap":
+
             analysis = SHAP()
             if args.problem_type =='regression':
                 if args.model =="MLP":
@@ -270,14 +273,14 @@ class Sensitiviy_Analysis():
                         predictions = model(X_test.float())
                     y_test = torch.from_numpy(y_test)
                     mse = mean_squared_error(y_test,predictions)
+
                 elif args.model == 'LSTM':
                     scores_dict = analysis.shap_analysis_lstm_regression(model,X_test,X_train,args.num_classes,args.node)
-                    
                     predictions = model.predict(X_test)
-                    
                     mse = mean_squared_error(y_test,predictions)
 
             elif args.problem_type == 'classification':
+
                 if args.model =="MLP":
                     scores_dict = analysis.shap_analysis_classification(model,X_test,args.num_classes,node)
                     with torch.no_grad():
@@ -290,19 +293,18 @@ class Sensitiviy_Analysis():
                     y_test = torch.from_numpy(y_test)
                     y_test = torch.argmax(y_test,dim = 1)
                     acc = accuracy_score(y_test,predictions)
+
                 elif args.model == 'LSTM':
                     scores_dict = analysis.shap_analysis_classification_lstm(model,X_test,X_train,args.num_classes,args.node,args.n_steps)
-                    
                     predictions = model.predict(X_test)
-                    
                     predictions = np.argmax(predictions,axis = 1)
-                    
                     y_test = np.argmax(y_test,axis = 1)
                     acc = accuracy_score(y_test,predictions)
 
         #results = self.prepare_scores(scores_dict,args)       
         #labels = self.clustering(args,results,scores_dict,node = node)
  ########################################################################################################################################################################################
+# DeepLift
         elif args.method =="deeplift":
             analysis = Deeplift()
             if args.problem_type =='regression':
@@ -328,32 +330,23 @@ class Sensitiviy_Analysis():
                     y_test = torch.from_numpy(y_test)
                     y_test = torch.argmax(y_test,dim = 1)
                     acc = accuracy_score(y_test,predictions)
-                    
-
+                
         results = self.prepare_scores(scores_dict,args)       
         labels,thresh = self.clustering(args,results,scores_dict,node = node)  
-
-
-
 
         if args.plot =='yes':
             st = time.time()
             ploter.plot_all(args,graph,node,scores_dict,results,labels,ploter)
             et = time.time()
-
             plotting_time =(et - st)
-        
             plotting_time = t - plotting_time
         else:
             plotting_time = t
             
-
-
         print(plotting_time)
 
 
 ########################################################################################################################################################################################
-
         if args.problem_type=="classification":
             return labels,results,train_loss,train_acc,val_loss,val_acc,plotting_time,acc,thresh
         elif args.problem_type =="regression":
@@ -363,6 +356,9 @@ class Sensitiviy_Analysis():
 ########################################################################################################################################################################################
 
 if __name__=="__main__":
+
+    # You can apply a SA to a single node as in example by args.node argument:
+
     method = Sensitiviy_Analysis()
     parser = KParseArgs()
     prepare_Data = KData()
@@ -380,14 +376,9 @@ if __name__=="__main__":
     args.experiment_name = 'a'
     args.epochs = 10
     args.r = 3.55
-    
-  
-
     args.plot_cluster = True
 
     flag = len(sys.argv) == 1
-    
-
     if args.problem_type =="classification":
         labels,results,train_loss,train_acc,val_loss,val_acc,plotting_time,acc = method.apply_method(args,args.node)
     elif args.problem_type =="regression":

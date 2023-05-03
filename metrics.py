@@ -6,7 +6,8 @@ import os
 class Kmetrics():
     def __init__(self) -> None:
         pass
-
+    
+    # True positive, False positive and False negative rates
     def tp_fp(self,adj,pred_adj):
         tp = 0
         fp = 0
@@ -27,6 +28,7 @@ class Kmetrics():
         FN = fn/(fn+tp)
         return TP,FP,FN
 
+    #Accuracy
     def graph_acc(self,adj,pred_adj):
         t = 0
     
@@ -38,26 +40,24 @@ class Kmetrics():
         print(acc)
         return acc
 
+    # Loss
     def graph_dist(self,adj,pred_adj):
         dist = adj-pred_adj
         dist = np.abs(dist)
         dist = np.sum(dist)/2
         return dist
 
+    # Storing results
     def create_results_data(self,data,name):
         header = ['Experiment Name','Graph', 'Data Size', 'Node Size','Edge Size','Dynamics','Method','Model','Acc','TP','FP','FN','Loss','Prediction Acc/MSE','Run Time','Epochs','X']
         if not os.path.exists(name):
             with open(name, 'a') as f_object:
- 
-    
-    
                 writer_object = csv.writer(f_object)
  
                 writer_object.writerow(header)
  
                 writer_object.writerow(data)
  
-                # Close the file object
                 f_object.close()
         else:
             with open(name, 'a') as f_object:

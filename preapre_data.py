@@ -9,7 +9,8 @@ class KData():
 
     def __init__(self) -> None:
         pass
-
+    
+    # Data preparation for entering to the classification model
     def prepare_data_classification(self,path,target):
         with open('datasets/'+path,'rb') as f:
             ds = pickle.load(f)
@@ -21,7 +22,6 @@ class KData():
             d = np.zeros((ds[i].shape[0]-1, ds[i].shape[1]-1, ds[i].shape[2]))
             c=[]
             sample_target = ds[i][:,target_node][1:]
-        
             for j in range(ds[i].shape[1]):
                 if j!=target_node:
                     other = ds[i][:,j][:-1]
@@ -30,18 +30,15 @@ class KData():
                     else:
                         d[:,j] = other
             x.append(d)
-    
-            
             y.append(sample_target)
         x = np.array(x)
         y = np.array(y)
         x = np.concatenate(x)
         y = np.concatenate(y)
-    #x = to_categorical(x)
-    #y = to_categorical(y)
+  
         return x,y
     
-
+    # Data preparation for entering to the regression model
     def prepare_data_regression(self,path,target):
         with open('datasets/'+path,'rb') as f:
             df_2 = pickle.load(f)
@@ -56,8 +53,6 @@ class KData():
                     other = df_2[i].T[j]
                     c.append(other[:-1])
             x.append(np.array(c).T)
-    
-            
             y.append(sample_target)
         x = np.array(x)
         y = np.array(y)
@@ -65,7 +60,7 @@ class KData():
         y = np.concatenate(y)
         return x,y
 
-
+    # Train and Test loader
     def convert_to_tensor(self,X_train,X_test,y_train,y_test,batch_size,args):
     ## train data
         class TrainData(Dataset):
@@ -73,7 +68,6 @@ class KData():
                 self.X_data = X_data
                 self.y_data = y_data
           
-        
             def __getitem__(self, index):
                 return self.X_data[index], self.y_data[index]
         
@@ -92,8 +86,8 @@ class KData():
             def __len__ (self):
                 return len(self.X_data)
         BATCH_SIZE = batch_size
+
         if args.problem_type == 'regression':
-   
             train_data = TrainData(torch.FloatTensor(X_train),torch.FloatTensor(y_train))
             test_data = TestData(torch.FloatTensor(X_test),torch.FloatTensor(y_test))
             train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
@@ -104,10 +98,9 @@ class KData():
             train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
             test_loader = DataLoader(dataset=test_data, batch_size=BATCH_SIZE)
 
-
-    
         return train_loader,test_loader
 
+    # For LSTM
     def prepare_data_classification_lstm(self,path,target):
         with open('datasets/'+path,'rb') as f:
             ds = pickle.load(f)
@@ -119,7 +112,6 @@ class KData():
             d = np.zeros((ds[i].shape[0]-1, ds[i].shape[1]-1, ds[i].shape[2]))
             c=[]
             sample_target = ds[i][:,target_node][1:]
-        
             for j in range(ds[i].shape[1]):
                 if j!=target_node:
                     other = ds[i][:,j][:-1]
@@ -128,15 +120,13 @@ class KData():
                     else:
                         d[:,j] = other
             x.append(d)
-    
-            
             y.append(sample_target.reshape(sample_target.shape[0],1,sample_target.shape[1]))
         x = np.array(x)
         y = np.array(y)
-        #x = to_categorical(x)
-        #y = to_categorical(y)
+      
         return list(x),list(y)
-
+ 
+ # Regression LSTM
     def prepare_data_regression_lstm(self,path,target):
         with open('datasets/'+path,'rb') as f:
             df_2 = pickle.load(f)
@@ -152,8 +142,6 @@ class KData():
                     other = df_2[i].T[j]
                     c.append(other[:-1])
             x.append(np.array(c).T)
-    
-            
             y.append(sample_target)
         x = np.array(x)
         y = np.array(y)
@@ -177,10 +165,8 @@ class KData():
         tar = []
         for i in range(len(x)):
             dataset = np.hstack((x[i],y[i].reshape(y[i].shape)))
-        
             # convert into input/output
             X_1, y_a = self.split_sequences(dataset, n_steps)
-        
             seq.append(X_1)
             tar.append(y_a)
         seq = np.concatenate(seq)

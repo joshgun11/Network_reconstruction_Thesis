@@ -1,14 +1,14 @@
 from data_generation import Generate_Data
-
-data_generator = Generate_Data()
-
 from parsers import KParseArgs
 import sys
 
+data_generator = Generate_Data()
 parser = KParseArgs()
 args = parser.parse_args()
 flag = len(sys.argv) == 1
 
+''' Simple example for generating data manually, you can generate a data with different 
+node sizes on different graphs at the same time'''
 
 args.dynamics == 'rps'
 args.data_size = 500

@@ -20,36 +20,30 @@ class Kplot():
             plt.bar(x=results.keys(), height=c,color = 'white', alpha=0.7)
             plt.bar(x=neigh.keys(), height=neigh.values(), color='green', alpha=0.7,label='Neighbour')
             plt.bar(x=non_neigh.keys(), height=non_neigh.values(), color='red', alpha=0.7,label='Non-Neighbour')
-            
-
             if path:
                 plt.legend()
                 plt.title('Feature Importance Plot For Node: '+str(pair))
                 plt.xlabel('Nodes '+'Info: '+
                 str(('Model :'+args.model,'Graph :'+args.graph,'Dynamics :'+args.dynamics,'Method :'+args.method)))
                 plt.ylabel('Importance Scores')
-            
                 plt.savefig(path+'.png')
                 plt.close()
-                
-        
         plot_color_label_before(results, neighbours)
 
         return print("Plot created succesfully")
 
 
     def clustering_plot(self,labels,results,X,node,args,path):
-       
+    
         colors = ['green' if node ==1 else 'red' for node in labels]
         plt.scatter(np.array(list(X.keys())),results, c=colors, cmap='rainbow')
         plt.title('Clustering Results For Node: '+str(node))
         plt.xlabel('Nodes '+'Info: '+str(('Model :'+args.model,'Graph :'+args.graph,'Dynamics :'+args.dynamics,'Method :'+args.method)))
         plt.ylabel('Importance Scores')
         plt.savefig(path+'.png')
-    
         plt.close()
 
-
+ # Loss and accuracy plot
     def plot_avg_metrics(self,metric_train,metric_test,metric,args,path):
         def find_max_list(list):
             list_len = [len(i) for i in list]
@@ -81,7 +75,7 @@ class Kplot():
         plt.savefig(path+'.png')
         plt.close()
 
-
+# Heatmap
     def heatmap(self,g,results,node,args,path):
         results = (results-np.mean(results))/np.std(results)
     
@@ -95,7 +89,8 @@ class Kplot():
         nx.draw(g, with_labels=True,node_size=1000,ax = ax, node_color=values, cmap=plt.cm.Reds,pos=nx.kamada_kawai_layout(g))
         plt.savefig(path+'.png')
         plt.close()
-    
+
+    # Distance plot
     def distance_and_importance(self,G,results,X,target,args,path=None):
         distance = []
         for i in G.nodes():
@@ -113,22 +108,21 @@ class Kplot():
             labels=['Non-Neighbour','Neighbour'])
         plt.xlabel('Shortest Distance to the Node '+str(target)) 
         plt.ylabel('Importance Score') 
-  
-        # displaying the title
         plt.title("Node's distance and its importance to Target Node")
         if path:
-        
             plt.savefig(path+'.png')
             plt.close()
 
+# Plot all together
     def plot_all(self,args,graph,node,scores_dict,results,labels,ploter):
             data_size = args.data_size
             node_size = args.node_size
             G = graph.generate_graph(args,node_size)
+
             if args.experiment_name == None:
                 args.experiment_name = str(str(args.dynamics)+'_'+str(int(args.data_size/1000))+'K'+'_'+str(args.graph)+'_'+str(args.node_size)+'_'+args.model+'_'+args.method+str(args.every_x_step))
-
             path = 'results/'+str(args.dynamics)+'/'+str(args.graph)+'/'+args.experiment_name+'/'
+
             if not os.path.exists('results'):
                 os.mkdir('results')
                 os.mkdir('results/'+str(args.dynamics))

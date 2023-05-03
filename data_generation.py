@@ -14,7 +14,7 @@ class Generate_Data():
         pass
 
     
-
+    # Voter
     def voter(self,args):
 
         def gen_voter_trajectory(G, noise=0.01, burn_in=100, length=1000, every_x_step=1):
@@ -71,7 +71,7 @@ class Generate_Data():
 
         return print('Data Generated Successfully')
 
-
+    # SIS
     def sis(self,args):
         def gen_sis_trajectory(G, inf_rate=1.0, rec_rate=2.0, noise=0.1, burn_in=10, length=1000, every_x_step=5):
             S = [1., 0.]
@@ -99,7 +99,6 @@ class Generate_Data():
                     break
             return np.array(trajectory)
             
-
         def generate_sis_data(G,n,every_x_step):
             data = []
             for i in range(n):
@@ -113,8 +112,6 @@ class Generate_Data():
         G = graph_generator.generate_graph(args,args.node_size)
         TS = generate_sis_data(G,args.data_size,args.every_x_step)
 
-
-        
         plot_path = 'datasets/sis'
         if not os.path.exists('datasets'):
             os.mkdir('datasets')
@@ -131,6 +128,7 @@ class Generate_Data():
 
         return print('Data Generated Successfully')
 
+    #Game of Life
     def gol(self,args):
         def gen_gameoflife_trajectory(G, change_rate=1.0, noise=0.01, burn_in=100, length=1000, every_x_step=1):
             A = [1., 0.]
@@ -188,6 +186,7 @@ class Generate_Data():
 
         return print('Data Generated Successfully')
 
+    # CML
     def cml(self,args):
         def solve_cmp(G, s=args.s, r=args.r,limit = True):
             def f_map(x): return r*x*(1.0-x)
@@ -244,6 +243,7 @@ class Generate_Data():
 
         return print('Data Generated Successfully')
 
+    # RPS
     def rps(self,args):
         def gen_rps(G, change_rate=1.0, noise=0.1,burn_in=10, length=1000, every_x_step=5):
             R = [1, 0, 0]
@@ -308,7 +308,7 @@ class Generate_Data():
 
         return print('Data Generated Successfully')
     
-        
+    # Forest Fire
     def forest_fire(self,args):
         def gen_forestfire(G, growth_rate=1.0, lightning_rate=0.1, firespread_rate = 2.0,
             fireextinct_rate = 2.0, noise=0.01,burn_in=10, length=1000, every_x_step=5):

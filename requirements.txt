@@ -6,8 +6,10 @@ astunparse==1.6.3
 Babel==2.10.3
 backcall==0.2.0
 cachetools==5.2.0
+captum==0.6.0
 certifi==2022.6.15.1
 charset-normalizer==2.1.1
+cloudpickle==2.2.0
 cycler==0.11.0
 debugpy==1.6.3
 decorator==5.1.1
@@ -36,6 +38,7 @@ keras==2.10.0
 Keras-Preprocessing==1.1.2
 kiwisolver==1.4.4
 libclang==14.0.6
+llvmlite==0.39.1
 Markdown==3.4.1
 MarkupSafe==2.1.1
 matplotlib==3.5.3
@@ -43,6 +46,7 @@ matplotlib-inline==0.1.6
 nest-asyncio==1.5.5
 netrd==0.3.0
 networkx==2.8.6
+numba==0.56.3
 numpy==1.23.3
 numpydoc==1.2.1
 oauthlib==3.2.1
@@ -71,8 +75,10 @@ requests-oauthlib==1.3.1
 rsa==4.9
 scikit-learn==1.1.2
 scipy==1.9.1
+shap==0.41.0
 six==1.16.0
 sklearn==0.0
+slicer==0.0.7
 snowballstemmer==2.2.0
 Sphinx==2.0.1
 sphinx-rtd-theme==1.0.0
@@ -91,7 +97,9 @@ tensorflow-estimator==2.10.0
 tensorflow-io-gcs-filesystem==0.27.0
 termcolor==2.0.1
 threadpoolctl==3.1.0
+torch==1.12.1
 tornado==6.2
+tqdm==4.64.1
 traitlets==5.4.0
 typing_extensions==4.3.0
 urllib3==1.26.12
