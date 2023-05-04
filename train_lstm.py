@@ -75,7 +75,10 @@ class Train_LSTM():
 
         if args.problem_type =="classification":
 
+            
             X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
+            X_train,y_train = KData().create_sequence_class(X_train,y_train,args.n_steps)
+            X_test,y_test = KData().create_sequence_class(X_test,y_test,args.n_steps)
             X_train = np.array(X_train)
             y_train = np.array(y_train)
             X_test = np.array(X_test)
@@ -89,6 +92,8 @@ class Train_LSTM():
         elif args.problem_type =="regression":
 
             X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
+            X_train,y_train = KData().create_sequence_reg(X_train,y_train,args.n_steps)
+            X_test,y_test = KData().create_sequence_reg(X_test,y_test,args.n_steps)            
             X_train = np.array(X_train)
             y_train = np.array(y_train)
             X_test = np.array(X_test)

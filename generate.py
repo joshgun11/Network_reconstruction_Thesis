@@ -10,9 +10,9 @@ flag = len(sys.argv) == 1
 ''' Simple example for generating data manually, you can generate a data with different 
 node sizes on different graphs at the same time'''
 
-args.dynamics == 'rps'
-args.data_size = 500
-node_size = [5]
+args.dynamics == 'cml'
+args.data_size = 5000
+node_size = [10]
 graphs = ['erdos']
 
 for i in range(len(graphs)):
@@ -20,5 +20,5 @@ for i in range(len(graphs)):
     for j in range(len(node_size)):
         args.node_size = node_size[j]
         args.r = 3.8
-        data_generator.rps(args)
+        data_generator.cml(args)
 

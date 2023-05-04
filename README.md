@@ -33,7 +33,7 @@ Then:
 ## RECONSTRUCTION:
 You can run the following command in the terminal:
 
- `python reconstruct_graph.py --problem_type classification --num_classes 2 --node_size 10 --method input_change --model MLP --epochs 100 --dynamics voter --graph grid --data_size 10000 --experiment_name example --data grid_10_voter_10000_5.pickle --file_name example`
+ `python reconstruct_graph.py --problem_type classification --num_classes 2 --node_size 9 --method input_change --model MLP --epochs 100 --dynamics voter --graph grid --data_size 10000 --experiment_name example --data grid_10_voter_10000_5.pickle --file_name example`
 
 to run the experiment for reconstructing the 10 (9) nodes grid graph with voter dynamics by using MLP models and input permutation SA. You can look for the other options as `LSTM` for the model , or other two possible SA methods from the `parsers.py` file. If you are using `LSTM` as the predictor, only input permutation SA is available, which is named as `input_change`. You need to specify `--problem_type` argument as `classification` for the binary and discrete dynamical models (Voter, SIS, Game of life, RPS, Forest fire) and `regression` for CML. Also you should define `--num_classes` argument 2 for the SIS, Voter, and Game of life, 3 for RPS and Forest fire, 1 for the CML. 
 
@@ -49,6 +49,8 @@ You can find the results of experiments mentioned in thesis from the `Experiment
 ## DATA GENERATION:
 
 You can generate a new data by running `python data_generation.py --dynamics voter --graph erdos --node_size 10 --data_size 5000 --every_x_step 5 ` as an example which will create a data with voter dynamics on 10 node erdos graph with the size of 5000 and sampling rate 5, in a path `datasets\voter\erdos_10_voter_5000_5.pickle`. You can look at the `parser.py` file to see the all arguments and their default values. 
+
+You should un-zip the datasets to use example ready datasets which are used in thesis (Not all are there because of storage, but comparison with baselines dataset mainly)
 
 
 

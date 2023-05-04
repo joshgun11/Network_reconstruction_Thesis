@@ -71,9 +71,9 @@ class Sensitiviy_Analysis():
                 from train_lstm import Train_LSTM
                 lstm_trainer = Train_LSTM()
                 x,y = prepare_data.prepare_data_classification_lstm(args.dynamics+'/'+args.data,node)
-                x_seq,y_seq = prepare_data.create_sequence_class(x,y,args.n_steps)
+                #x_seq,y_seq = prepare_data.create_sequence_class(x,y,args.n_steps)
                 if not os.path.exists('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'.h5'):
-                    x_seq,y_seq,X_test,X_train,model,train_acc,train_loss,val_loss,val_acc,y_test,t = lstm_trainer.train_lstm(args,x_seq,y_seq,node)
+                    x_seq,y_seq,X_test,X_train,model,train_acc,train_loss,val_loss,val_acc,y_test,t = lstm_trainer.train_lstm(args,x,y,node)
                     with open('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'_train_loss.pickle','wb') as f:
                         pickle.dump(train_loss, f)
                     with open('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'_val_loss.pickle','wb') as f:
@@ -86,7 +86,11 @@ class Sensitiviy_Analysis():
                         pickle.dump(t, f)
                     t = 0
                 else:
-                    X_train,X_test,y_train,y_test = train_test_split(x_seq,y_seq,test_size = .2,random_state = 43,shuffle = False)
+
+                    X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
+                    X_train,y_train = KData().create_sequence_class(X_train,y_train,args.n_steps)
+                    X_test,y_test = KData().create_sequence_class(X_test,y_test,args.n_steps)
+
                     model = keras.models.load_model('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'.h5')
                     with open('trained_models_lstm/classification/'+str(args.data)[:-7]+'/'+str(node)+'_train_loss.pickle','rb') as f:
                         train_loss = pickle.load(f)
@@ -134,9 +138,9 @@ class Sensitiviy_Analysis():
                 from train_lstm import Train_LSTM
                 lstm_trainer = Train_LSTM()
                 x,y = prepare_data.prepare_data_regression_lstm(args.dynamics+'/'+args.data,node)
-                x_seq,y_seq = prepare_data.create_sequence_reg(x,y,args.n_steps)
+                #x_seq,y_seq = prepare_data.create_sequence_reg(x,y,args.n_steps)
                 if not os.path.exists('trained_models_lstm/regression/'+str(args.data)[:-7]+'/'+str(node)+'.h5'):
-                    x_seq,x_seq,y_test,X_test,X_train,model,train_loss,val_loss,t = lstm_trainer.train_lstm(args,x_seq,y_seq,node)
+                    x_seq,x_seq,y_test,X_test,X_train,model,train_loss,val_loss,t = lstm_trainer.train_lstm(args,x,y,node)
                     with open('trained_models_lstm/regression/'+str(args.data)[:-7]+'/'+str(node)+'_train_loss.pickle','wb') as f:
                         pickle.dump(train_loss, f)
                     with open('trained_models_lstm/regression/'+str(args.data)[:-7]+'/'+str(node)+'_val_loss.pickle','wb') as f:
@@ -145,7 +149,9 @@ class Sensitiviy_Analysis():
                         pickle.dump(t, f)
                     t = 0
                 else:
-                    X_train,X_test,y_train,y_test = train_test_split(x_seq,y_seq,test_size = .2,random_state = 43,shuffle = False)
+                    X_train,X_test,y_train,y_test = train_test_split(x,y,test_size = .2,random_state = 43,shuffle = False)
+                    X_train,y_train = KData().create_sequence_reg(X_train,y_train,args.n_steps)
+                    X_test,y_test = KData().create_sequence_reg(X_test,y_test,args.n_steps)                    
                     model = keras.models.load_model('trained_models_lstm/regression/'+str(args.data)[:-7]+'/'+str(node)+'.h5')
                     with open('trained_models_lstm/regression/'+str(args.data)[:-7]+'/'+str(node)+'_train_loss.pickle','rb') as f:
                         train_loss = pickle.load(f)

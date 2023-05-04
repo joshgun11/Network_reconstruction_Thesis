@@ -124,7 +124,7 @@ class KData():
         x = np.array(x)
         y = np.array(y)
       
-        return list(x),list(y)
+        return np.array(x),np.array(y)
  
  # Regression LSTM
     def prepare_data_regression_lstm(self,path,target):
