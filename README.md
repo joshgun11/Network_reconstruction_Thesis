@@ -1,4 +1,4 @@
-# NSNR - Neural Sensitivty based Network Reconstruction
+# NSNR - Neural Sensitivity based Network Reconstruction
 There are many natural processes that can be represented as dynamic systems
 operating on networks of individual components, such as the spread of viruses in
 social networks or the propagation of electrical signals in the brain. Understanding
@@ -12,32 +12,32 @@ behavior. Using sensitivity analysis, we identify the most important nodes for e
 node and reconstruct the network without any ground truth information. Unlike
 the many traditional (statistical) network reconstruction methods, our approach
 can reconstruct networks with highly non-linear dynamics, find edges between
-heterogenous nodes (nodes do not behave similarly), can distinguish direct and
+heterogeneous nodes (nodes that do not behave similarly), can distinguish direct and
 indirect effects in sufficient amounts. 
 You can find the pdf version of the thesis in `thesis_main.pdf`
 
 ![input_change_MLP_erdos_50_50000_reconstructed](https://user-images.githubusercontent.com/77841418/235725943-a859971b-d42d-4e55-ad2b-8f6343383e49.png)
 
 ## Usage:
--  Clone the repistory `git clone https://github.com/joshgun11/Network_reconstruction_Thesis.git`
+-  Clone the repository `git clone https://github.com/joshgun11/Network_reconstruction_Thesis.git`
 -  Navigate to the repository directory in your terminal `cd Network_reconstruction_Thesis`
--  Create virtual environment on your machine `python -m venv example_env`
+-  Create a virtual environment on your machine `python -m venv example_env`
 -  Activate the environment `source env/bin/activate`
 -  Install the required packages `pip install -r requirements.txt`
--  If the example datasets are zipped, you should unzip the files to be accesible by NSNR. Example data should be in a path `datasets\dynamics\example_data`
+-  If the example datasets are zipped, you should unzip the files to be accessible by NSNR. Example data should be in a path `datasets\dynamics\example_data`
 
 Then:
 
 ## RECONSTRUCTION:
-You can run the following command in terminal:
+You can run the following command in the terminal:
 
  `python reconstruct_graph.py --problem_type classification --num_classes 2 --node_size 10 --method input_change --model MLP --epochs 100 --dynamics voter --graph grid --data_size 10000 --experiment_name example --data grid_10_voter_10000_5.pickle --file_name example`
 
-to run experiment for reconstructing the 10 (9) nodes grid graph with voter dynamics by using MLP models and input permutation SA. You can look for the other options as `LSTM` for the model , or other two possible SA methods from the `parsers.py` file. If you are using `LSTM` as the predictos, only input permutation SA is available , which is named as `input_change`. You need to specify `--problem_type` argument as `classification` for the binary and discrete dynamical models (Voter, SIS, Game of life, RPS, Forest fire) and `regression` for CML. Also you should define `--num_classes` argument 2 for the SIS, Voter and Game of life, 3 for RPS and Forest fire, 1 for the CML. 
+to run the experiment for reconstructing the 10 (9) nodes grid graph with voter dynamics by using MLP models and input permutation SA. You can look for the other options as `LSTM` for the model , or other two possible SA methods from the `parsers.py` file. If you are using `LSTM` as the predictor, only input permutation SA is available, which is named as `input_change`. You need to specify `--problem_type` argument as `classification` for the binary and discrete dynamical models (Voter, SIS, Game of life, RPS, Forest fire) and `regression` for CML. Also you should define `--num_classes` argument 2 for the SIS, Voter, and Game of life, 3 for RPS and Forest fire, 1 for the CML. 
 
-Note than NSNR is not using ground truth graph and dynamics. They are arguments just to reach to the data as data is located in path `datasets\args.dynamics\args.data`, and return plots for comparison at the end. By defining `--file_name` argument we write the name of `csv` file that we store our results (metrics). 
+Note that NSNR is not using ground truth graph and dynamics. They are arguments just to reach to the data as data is located in path `datasets\args.dynamics\args.data`, and return plots for comparison at the end. By defining `--file_name` argument we write the name of `csv` file that we store our results (metrics). 
 
-Example dataset is named as `grid_10_voter_10000_5.pickle` where `grid` shows the graph type, `10` is number of nodes, `voter` is dynamics, `10000` is the size of data, and `5` is sampling rate. You can re-run the experiments based on this fromulation with the desired dataset. 
+Example dataset is named as `grid_10_voter_10000_5.pickle` where `grid` shows the graph type, `10` is number of nodes, `voter` is dynamics, `10000` is the size of data, and `5` is sampling rate. You can re-run the experiments based on this formulation with the desired dataset. 
 
 `trained_models` folder are containing the trained models, where if you want to use a specific data for experiment and if there are trained models for this data set, process will start from the SA (sensitivty analysis) part. You can delete the trained model of the specific data set if you want to train new models. In both cases, NSNR will return a weighted adjacency matrix (`scores.npy`), ground truth adjacency matrix (`original_adj_matrix.npy`) and predicted adjacency matrix (`predicted_adj_matrix.npy`) as numpy array, and it will be stored in a `results` folder together with the average `loss` and `accuracy` plots, and `ground truth` and `predicted` network plots. If you wish to get feature importance plots, clustering plots, heatmaps and distance plots, you have to add argument `--plot yes` to the command above. 
 
