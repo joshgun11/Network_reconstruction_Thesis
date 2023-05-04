@@ -15,6 +15,7 @@ can reconstruct networks with highly non-linear dynamics, find edges between
 heterogeneous nodes (nodes that do not behave similarly), can distinguish direct and
 indirect effects in sufficient amounts. 
 You can find the pdf version of the thesis in `thesis_main.pdf`
+![deeplift_MLP_erdos_50_50000_original](https://user-images.githubusercontent.com/77841418/236284144-5cc15690-3bc0-4a45-a134-1df3d7b443b7.png)
 
 ![input_change_MLP_erdos_50_50000_reconstructed](https://user-images.githubusercontent.com/77841418/235725943-a859971b-d42d-4e55-ad2b-8f6343383e49.png)
 
