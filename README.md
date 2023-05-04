@@ -17,7 +17,8 @@ indirect effects in sufficient amounts.
 You can find the pdf version of the thesis in `thesis_main.pdf`
 ![deeplift_MLP_erdos_50_50000_original](https://user-images.githubusercontent.com/77841418/236284144-5cc15690-3bc0-4a45-a134-1df3d7b443b7.png)
 
-![input_change_MLP_erdos_50_50000_reconstructed](https://user-images.githubusercontent.com/77841418/235725943-a859971b-d42d-4e55-ad2b-8f6343383e49.png)
+
+![input_change_MLP_erdos_50_50000_reconstructed](https://user-images.githubusercontent.com/77841418/236284430-a96e25eb-2517-4578-a29f-46f1be36ae52.png)
 
 ## Usage:
 -  Clone the repository `git clone https://github.com/joshgun11/Network_reconstruction_Thesis.git`
