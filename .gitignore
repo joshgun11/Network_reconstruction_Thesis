@@ -10,5 +10,5 @@ th_env
 .pt
 .h5
 *.pickle
-*.pdf
 images
+*.pdf
