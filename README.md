@@ -1,19 +1,5 @@
-# NSNR - Neural Sensitivity based Network Reconstruction
-There are many natural processes that can be represented as dynamic systems
-operating on networks of individual components, such as the spread of viruses in
-social networks or the propagation of electrical signals in the brain. Understanding
-the behavior of such systems requires knowledge of the underlying interaction
-structure, which is often difficult to observe directly. In this work, we use deep
-learning to address the network reconstruction problem. Without relying on many
-parametric assumptions about the network structure and dynamics. We train node-
-specific MLP (multi-layer perceptron) models to learn the behavior of each node.
-Assuming that the direct neighbors of each node have the most impact on its future
-behavior. Using sensitivity analysis, we identify the most important nodes for each
-node and reconstruct the network without any ground truth information. Unlike
-the many traditional (statistical) network reconstruction methods, our approach
-can reconstruct networks with highly non-linear dynamics, find edges between
-heterogeneous nodes (nodes that do not behave similarly), can distinguish direct and
-indirect effects in sufficient amounts. 
+# Network Reconstruction Using Deep Learning and Sensitivty Analysis - (NSNR - Neural Sensitivity based Network Reconstruction)
+There are many natural processes that can be represented as dynamic systems, and the components of these systems are connected to each other with some un- derlying network structure. Understanding the behavior of such systems requires knowledge of the underlying interactions and network structure, which is often difficult to observe directly. In this thesis, we use deep learning to address the network reconstruction problem. Without relying on many parametric assumptions about the network structure and dynamics. We train node-specific MLP (multi-layer perceptron) models to learn the behavior of each node. Assuming that the direct neighbors of each node have the most impact on its future behavior. Using sensitivity analysis, we identify the most important nodes for each node and reconstruct the network without any ground truth information. Unlike the many traditional (statisti- cal) network reconstruction methods, our approach can reconstruct networks with non-linear dynamics, find edges between heterogenous nodes (nodes do not behave similarly), can distinguish direct and indirect effects in sufficient amounts.
 You can find the pdf version of the thesis in `thesis_main.pdf`
 ![deeplift_MLP_erdos_50_50000_original](https://user-images.githubusercontent.com/77841418/236284144-5cc15690-3bc0-4a45-a134-1df3d7b443b7.png)
 
